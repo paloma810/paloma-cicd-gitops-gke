@@ -5,7 +5,7 @@ WORKDIR /app
 RUN apk update && npm install -g @vue/cli
 RUN apk --update add vim
 
-COPY ./src/front /app
+COPY ./src/frontend /app
 
 RUN npm install -g vue-router axios vuex vuetify
 RUN vue add vuetify
