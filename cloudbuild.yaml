@@ -1,0 +1,24 @@
+substitutions:
+  _GAR_REPOSITORY_REGION: "asia-northeast1"
+  _GAR_PROJECT_ID: "paloma-cicd"
+  _GAR_REPOSITORY_NAME: "paloma-cicd-repo-gke"
+  _GAR_GAR_IMAGE_NAME: "sample-app"
+  _GKE_CLUSTER_ZONE: "asia-northeast1-a"
+  _GKE_CLUSTER_NAME: "kh-paloma-m01-01-gke-cluster01"
+  _GKE_PROJECT_ID: "kh-paloma-m01-01"
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', '${_GAR_REPOSITORY_REGION}-docker.pkg.dev/${_GAR_PROJECT_ID}/${_GAR_REPOSITORY_NAME}/${_GAR_IMAGE_NAME}:latest', '.']
+  id: docker build
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', '${_GAR_REPOSITORY_REGION}-docker.pkg.dev/${_GAR_PROJECT_ID}/${_GAR_REPOSITORY_NAME}/${_GAR_IMAGE_NAME}:latest']
+  id: docker push
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['container', 'clusters', 'get-credentials', '${_GKE_CLUSTER_NAME}', '--zone','${_GKE_CLUSTER_ZONE}','--project', '${_GKE_PROJECT_ID}']
+  id: gcloud container clusters get-credentials
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: ['apply', '-f', 'sample-gke.yaml']
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=${_GKE_CLUSTER_ZONE}'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=${_GKE_CLUSTER_NAME}'
+  id: kubectl apply
