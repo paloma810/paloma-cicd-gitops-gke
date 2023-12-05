@@ -1,2 +1,1 @@
 # paloma-cicd-gitops-gke
-
