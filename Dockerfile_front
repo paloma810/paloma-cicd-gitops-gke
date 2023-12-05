@@ -1,0 +1,13 @@
+FROM node:16.6.0-alpine
+
+WORKDIR /app
+
+RUN apk update && npm install -g @vue/cli
+RUN apk --update add vim
+
+COPY ./src/front /app
+
+RUN npm install -g vue-router axios vuex vuetify
+RUN vue add vuetify
+
+ENTRYPOINT ["npm", "run", "serve"]

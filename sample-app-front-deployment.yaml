@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f ../sample-app/docker-compose.yml
+    kompose.version: 1.31.2 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: sample-app-front
+  name: sample-app-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: sample-app-front
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f ../sample-app/docker-compose.yml
+        kompose.version: 1.31.2 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/sample-app-default: "true"
+        io.kompose.service: sample-app-front
+    spec:
+      containers:
+        - image: sample-app-front:latest
+          name: sample-app-front
+          ports:
+            - containerPort: 8080
+          resources: {}
+          tty: true
+          volumeMounts:
+            - mountPath: /app
+              name: sample-app-front-claim0
+          workingDir: /app
+      restartPolicy: Always
+      volumes:
+        - name: sample-app-front-claim0
+          persistentVolumeClaim:
+            claimName: sample-app-front-claim0

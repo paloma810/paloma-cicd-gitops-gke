@@ -1,0 +1,10 @@
+FROM node:16.6.0-alpine
+
+WORKDIR /app
+
+RUN apk update && npm install -g express body-parser cors
+RUN apk --update add vim
+
+COPY ./src/backend /app
+
+ENTRYPOINT [ "node", "index.js" ]
