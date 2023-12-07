@@ -44,3 +44,4 @@ spec:
         - name: sample-app-back-claim0
           persistentVolumeClaim:
             claimName: sample-app-back-claim0
+
