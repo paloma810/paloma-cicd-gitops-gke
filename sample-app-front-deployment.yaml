@@ -30,7 +30,10 @@ spec:
           name: sample-app-front
           ports:
             - containerPort: 8080
-          resources: {}
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
           tty: true
           volumeMounts:
             - mountPath: /app
