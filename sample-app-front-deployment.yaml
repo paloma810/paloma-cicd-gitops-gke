@@ -36,7 +36,7 @@ spec:
               memory: 100Mi
           tty: true
           volumeMounts:
-            - mountPath: /app
+            - mountPath: /pvc
               name: sample-app-front-claim0
           workingDir: /app
       restartPolicy: Never
