@@ -26,7 +26,7 @@ spec:
         io.kompose.service: sample-app-front
     spec:
       containers:
-        - image: sample-app-front:latest
+        - image: asia-northeast1-docker.pkg.dev/paloma-cicd/paloma-cicd-repo-gke/sample-app-front:latest
           name: sample-app-front
           ports:
             - containerPort: 8080

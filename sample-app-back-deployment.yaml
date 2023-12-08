@@ -26,7 +26,7 @@ spec:
         io.kompose.service: sample-app-back
     spec:
       containers:
-        - image: sample-app-back:latest
+        - image: asia-northeast1-docker.pkg.dev/paloma-cicd/paloma-cicd-repo-gke/sample-app-back:latest
           name: sample-app-back
           ports:
             - containerPort: 3000
