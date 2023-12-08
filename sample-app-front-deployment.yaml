@@ -39,7 +39,7 @@ spec:
             - mountPath: /app
               name: sample-app-front-claim0
           workingDir: /app
-      restartPolicy: Always
+      restartPolicy: Never
       volumes:
         - name: sample-app-front-claim0
           persistentVolumeClaim:
