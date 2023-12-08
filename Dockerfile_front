@@ -5,7 +5,7 @@ WORKDIR /app
 RUN apk update && npm install -g @vue/cli
 RUN apk --update add vim
 
-COPY ./src/frontend /app
+COPY ./src/frontend/ /app/
 
 # config.json is not foundのエラー対応のため、node_modules削除&npm install とした。
 # RUN npm install -g vue-router axios vuex vuetify

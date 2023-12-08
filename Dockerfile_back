@@ -7,7 +7,7 @@ WORKDIR /app
 RUN apk update
 RUN apk --update add vim
 
-COPY ./src/backend /app
+COPY ./src/backend/ /app/
 
 RUN npm install
 
