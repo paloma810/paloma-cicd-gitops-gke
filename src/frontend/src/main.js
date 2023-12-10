@@ -11,7 +11,8 @@ loadFonts()
 const app = createApp(App)
 
 app.config.globalProperties.$axios = axios.create({
-  baseURL: 'http://localhost:3000/'
+    //baseURL: 'http://localhost:3000/'
+    baseURL: 'http://sample-app-back.default.svc.cluster.local:3000/'
 });
 
 app
