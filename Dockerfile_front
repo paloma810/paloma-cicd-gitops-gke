@@ -14,3 +14,4 @@ COPY ./src/frontend/ /app/
 RUN npm install
 
 ENTRYPOINT ["npm", "run", "serve"]
+
