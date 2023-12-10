@@ -8,6 +8,14 @@ import { loadFonts } from './plugins/webfontloader'
 
 loadFonts()
 
+require('@google-cloud/trace-agent').start();
+require('@google-cloud/profiler').start({
+  serviceContext: {
+    service: 'sample-app-front',
+    version: '1.0.0',
+  },
+});
+
 const app = createApp(App)
 
 app.config.globalProperties.$axios = axios.create({
