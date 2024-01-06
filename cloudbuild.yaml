@@ -10,22 +10,22 @@ substitutions:
   _GKE_PROJECT_ID: "kh-paloma-m01-01"
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-f', 'Dockerfile_front', '-t', '${_GAR_REPOSITORY_REGION}-docker.pkg.dev/${_GAR_PROJECT_ID}/${_GAR_REPOSITORY_NAME}/${_GAR_IMAGE_NAME_FRONT}:${BUILD_ID}', '.']
+  args: ['build', '-f', 'Dockerfile_front', '-t', '${_GAR_REPOSITORY_REGION}-docker.pkg.dev/${_GAR_PROJECT_ID}/${_GAR_REPOSITORY_NAME}/${_GAR_IMAGE_NAME_FRONT}:${SHORT_SHA}', '.']
   id: docker build front
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', '${_GAR_REPOSITORY_REGION}-docker.pkg.dev/${_GAR_PROJECT_ID}/${_GAR_REPOSITORY_NAME}/${_GAR_IMAGE_NAME_FRONT}:${BUILD_ID} ']
+  args: ['push', '${_GAR_REPOSITORY_REGION}-docker.pkg.dev/${_GAR_PROJECT_ID}/${_GAR_REPOSITORY_NAME}/${_GAR_IMAGE_NAME_FRONT}:${SHORT_SHA}']
   id: docker push front
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-f', 'Dockerfile_back', '-t', '${_GAR_REPOSITORY_REGION}-docker.pkg.dev/${_GAR_PROJECT_ID}/${_GAR_REPOSITORY_NAME}/${_GAR_IMAGE_NAME_BACK}:${BUILD_ID}', '.']
+  args: ['build', '-f', 'Dockerfile_back', '-t', '${_GAR_REPOSITORY_REGION}-docker.pkg.dev/${_GAR_PROJECT_ID}/${_GAR_REPOSITORY_NAME}/${_GAR_IMAGE_NAME_BACK}:${SHORT_SHA}', '.']
   id: docker build back
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', '${_GAR_REPOSITORY_REGION}-docker.pkg.dev/${_GAR_PROJECT_ID}/${_GAR_REPOSITORY_NAME}/${_GAR_IMAGE_NAME_BACK}:${BUILD_ID}']
+  args: ['push', '${_GAR_REPOSITORY_REGION}-docker.pkg.dev/${_GAR_PROJECT_ID}/${_GAR_REPOSITORY_NAME}/${_GAR_IMAGE_NAME_BACK}:${SHORT_SHA}']
   id: docker push back
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-f', 'Dockerfile_db', '-t', '${_GAR_REPOSITORY_REGION}-docker.pkg.dev/${_GAR_PROJECT_ID}/${_GAR_REPOSITORY_NAME}/${_GAR_IMAGE_NAME_DB}:${BUILD_ID}', '.']
+  args: ['build', '-f', 'Dockerfile_db', '-t', '${_GAR_REPOSITORY_REGION}-docker.pkg.dev/${_GAR_PROJECT_ID}/${_GAR_REPOSITORY_NAME}/${_GAR_IMAGE_NAME_DB}:${SHORT_SHA}', '.']
   id: docker build db
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', '${_GAR_REPOSITORY_REGION}-docker.pkg.dev/${_GAR_PROJECT_ID}/${_GAR_REPOSITORY_NAME}/${_GAR_IMAGE_NAME_DB}:${BUILD_ID} ']
+  args: ['push', '${_GAR_REPOSITORY_REGION}-docker.pkg.dev/${_GAR_PROJECT_ID}/${_GAR_REPOSITORY_NAME}/${_GAR_IMAGE_NAME_DB}:${SHORT_SHA}']
   id: docker push db
 - name: 'gcr.io/cloud-builders/gcloud'
   args: ['container', 'clusters', 'get-credentials', '${_GKE_CLUSTER_NAME}', '--zone','${_GKE_CLUSTER_ZONE}','--project', '${_GKE_PROJECT_ID}']
@@ -36,7 +36,7 @@ steps:
   args:
   - '-c'
   - |
-     sed -i -e "s/BUILD_ID/${BUILD_ID}/g" ./sample-app-front-deployment.yaml ./sample-app-back-deployment.yaml;
+     sed -i -e "s/SHORT_SHA/${SHORT_SHA}/g" ./sample-app-front-deployment.yaml ./sample-app-back-deployment.yaml;
 - name: 'gcr.io/cloud-builders/kubectl'
   args: ['apply', '-f', './']
   env:
