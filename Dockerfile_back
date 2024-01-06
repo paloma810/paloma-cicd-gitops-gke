@@ -1,14 +1,11 @@
-FROM node:16.6.0-alpine
+FROM node:16
 
 WORKDIR /app
 
-# config.json is not foundのエラー対応のため、node_modules削除&npm install とした。
-# RUN apk update && npm install -g express body-parser cors
-RUN apk update
-RUN apk --update add vim
-
 COPY ./src/backend/ /app/
 
+RUN apt-get update
+RUN apt-get install -y vim
 RUN npm install
 
 ENTRYPOINT [ "node", "index.js" ]

@@ -1,19 +1,12 @@
-FROM node:16.6.0-alpine
+FROM node:18.1.0-alpine
 
 WORKDIR /app
-
-RUN apk update && npm install -g @vue/cli
-RUN apk --update add vim
-
 COPY ./src/frontend/ /app/
 
-# config.json is not foundのエラー対応のため、node_modules削除&npm install とした。
-# RUN npm install -g vue-router axios vuex vuetify
-# RUN vue add vuetify
+RUN apk update
+RUN apk --update add vim
 
+RUN npm install -g @vue/cli
 RUN npm install
-RUN npm install @google-cloud/trace-agent
-RUN npm install @google-cloud/profiler
 
 ENTRYPOINT ["npm", "run", "serve"]
-

@@ -8,21 +8,21 @@
         color="primary"
         flat
       >
-        test
+        Paloma-inds.com
       </v-toolbar>
       <v-card-title>
-        Login?
+        Login
       </v-card-title>
 
       <v-card-text>
         <v-form>
           <v-text-field
-            v-model="authId"
+            v-model="username"
             prepend-icon="mdi-account-circle"
             label="user ID"
           />
           <v-text-field
-            v-model="authPass"
+            v-model="password"
             :type="showPassword ? 'text' : 'password'" 
             prepend-icon="mdi-lock" 
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -33,7 +33,7 @@
             <v-btn
               block
               class="info"
-              @click="post"
+              @click="login"
             >
               LogIn
             </v-btn>
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+//import bcrypt from 'bcryptjs';
 
 export default {
   name: 'Login',
@@ -56,27 +57,31 @@ export default {
     return {
       showPassword : false,
       msg : 'userIDとpasswordを入力して下さい',
-      authId : '',
-      authPass : ''
+      username : '',
+      password : ''
     }
   },
   methods: {
-    async post() {
-      const data = { id : this.authId, pass : this.authPass };
-      this.msg = await this.$axios.post('/test', data)
-      .then(function (response) {
-        console.log(response);
-        return response.data.message;
+    async login() {
+      //const hashedPassword = bcrypt.hashSync(this.password, 10);
+      const data = { username : this.username, password : this.password };
+
+
+      this.msg = this.$store.dispatch("login", data)
+      .then(message => {
+        this.msg = message;
+        if (this.$store.state.isAuthenticated) {
+          this.msg = "move the top page ..."
+          this.$router.push('/Page1');
+        } else {
+          this.msg = "no authenticated"
+        }
       })
-      .catch(function (error) {
-        console.log(error);
-        return error.message;
+      .catch(error => {
+        this.msg = error;
+        return error;
       });
-      
-      if(this.msg == 'OK'){
-        this.$store.dispatch("fetch", this.authId);
-        this.$router.push('/Page1');
-      }
+
     }
   }
 };

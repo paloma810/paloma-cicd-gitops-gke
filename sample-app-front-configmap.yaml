@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sample-app-front-configmap
+data:
+  BACKEND_PORT: "3000"
+  BACKEND_SERVER: "34.84.60.122"

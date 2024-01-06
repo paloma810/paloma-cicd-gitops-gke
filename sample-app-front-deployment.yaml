@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: kompose convert -f ../sample-app/docker-compose.yml
+    kompose.cmd: kompose convert -f ../../sample-app-gcptest/docker-compose.yml
     kompose.version: 1.31.2 (HEAD)
   creationTimestamp: null
   labels:
@@ -18,29 +18,29 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: kompose convert -f ../sample-app/docker-compose.yml
+        kompose.cmd: kompose convert -f ../../sample-app-gcptest/docker-compose.yml
         kompose.version: 1.31.2 (HEAD)
       creationTimestamp: null
       labels:
-        io.kompose.network/sample-app-default: "true"
+        io.kompose.network/sample-app-gcptest-sample-app-network: "true"
         io.kompose.service: sample-app-front
     spec:
       containers:
-        - image: asia-northeast1-docker.pkg.dev/paloma-cicd/paloma-cicd-repo-gke/sample-app-front:latest
+        - image: asia-northeast1-docker.pkg.dev/paloma-cicd/paloma-cicd-repo-gke/sample-app-front:SHORT_SHA
           name: sample-app-front
           ports:
             - containerPort: 8080
+              hostIP: 127.0.0.1
+              hostPort: 8080
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+              name: sample-app-front-configmap
           resources:
             requests:
               cpu: 100m
               memory: 100Mi
           tty: true
-          volumeMounts:
-            - mountPath: /pvc
-              name: sample-app-front-claim0
           workingDir: /app
       restartPolicy: Always
-      volumes:
-        - name: sample-app-front-claim0
-          persistentVolumeClaim:
-            claimName: sample-app-front-claim0
+status: {}

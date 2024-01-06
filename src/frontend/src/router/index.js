@@ -30,8 +30,10 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  Store.dispatch('checkAuthentication'); // ページ遷移前に認証情報を確認
+
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!Store.state.isLogin) {
+    if (!Store.state.isAuthenticated) {
       next({
         path: '/Login',
         query: {

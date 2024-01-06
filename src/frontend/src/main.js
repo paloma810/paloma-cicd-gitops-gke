@@ -8,19 +8,12 @@ import { loadFonts } from './plugins/webfontloader'
 
 loadFonts()
 
-require('@google-cloud/trace-agent').start();
-require('@google-cloud/profiler').start({
-  serviceContext: {
-    service: 'sample-app-front',
-    version: '1.0.0',
-  },
-});
-
+const backend_server = process.env.BACKEND_SERVER
+const backend_port = process.env.BACKEND_PORT
 const app = createApp(App)
 
 app.config.globalProperties.$axios = axios.create({
-    //baseURL: 'http://localhost:3000/'
-    baseURL: 'http://sample-app-back.default.svc.cluster.local:3000/'
+  baseURL: `http://${backend_server}:${backend_port}/`
 });
 
 app

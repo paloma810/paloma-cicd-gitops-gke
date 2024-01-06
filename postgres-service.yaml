@@ -6,14 +6,13 @@ metadata:
     kompose.version: 1.31.2 (HEAD)
   creationTimestamp: null
   labels:
-    io.kompose.service: sample-app-back
-  name: sample-app-back
+    io.kompose.service: postgres
+  name: postgres
 spec:
   ports:
-    - name: "3000"
-      port: 3000
-      targetPort: 3000
-      nodePort: 30300
+    - name: "5432"
+      port: 5432
+      targetPort: 5432
   selector:
-    io.kompose.service: sample-app-back
-  type: NodePort
+    io.kompose.service: postgres
+  type: ClusterIP
