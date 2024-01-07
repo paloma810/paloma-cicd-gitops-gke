@@ -36,7 +36,7 @@ steps:
   args:
   - '-c'
   - |
-     sed -i -e "s/SHORT_SHA/${SHORT_SHA}/g" ./sample-app-front-deployment.yaml ./sample-app-back-deployment.yaml;
+     sed -i -e "s/SHORT_SHA/${SHORT_SHA}/g" ./sample-app-front-deployment.yaml ./sample-app-back-deployment.yaml ./postgres-deployment.yaml;
 - name: 'gcr.io/cloud-builders/kubectl'
   args: ['apply', '-f', './']
   env:
