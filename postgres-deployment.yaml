@@ -26,7 +26,7 @@ spec:
         io.kompose.service: postgres
     spec:
       containers:
-        - image: asia-northeast1-docker.pkg.dev/paloma-cicd/paloma-cicd-repo-gke/postgres:SHORT_SHA
+        - image: asia-northeast1-docker.pkg.dev/paloma-cicd/paloma-cicd-repo-gke/sample-app-db:SHORT_SHA
           name: sample-app-db
           ports:
             - containerPort: 5432
