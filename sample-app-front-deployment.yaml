@@ -35,7 +35,7 @@ spec:
               protocol: TCP
           envFrom:
             - configMapRef:
-              name: sample-app-front-configmap
+                name: sample-app-front-configmap
           resources:
             requests:
               cpu: 100m
