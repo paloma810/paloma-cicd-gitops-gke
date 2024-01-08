@@ -38,7 +38,7 @@ spec:
                 name: sample-app-back-configmap
           resources:
             requests:
-              cpu: 80m
+              cpu: 50m
               memory: 100Mi
           tty: true
           workingDir: /app
