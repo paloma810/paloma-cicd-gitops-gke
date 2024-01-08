@@ -39,6 +39,7 @@ const store = createStore({
         console.log(credentials);
         const response = await axios.post(`http://${backend_server}:${backend_port}/api/authenticate`, credentials, { headers: {
           'Content-Type': 'application/json'}});
+        console.log(`http://${backend_server}:${backend_port}/api/authenticate`);
         const message = response.data.message;
         console.log(message);
 
