@@ -43,4 +43,3 @@ spec:
       hostname: postgres
       restartPolicy: Always
 status: {}
-
