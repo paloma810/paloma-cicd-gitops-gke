@@ -38,8 +38,8 @@ spec:
                 name: sample-app-front-configmap
           resources:
             requests:
-              cpu: 100m
-              memory: 400Mi
+              cpu: 200m
+              memory: 500Mi
       hostname: postgres
       restartPolicy: Always
 status: {}
