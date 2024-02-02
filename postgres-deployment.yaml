@@ -35,11 +35,11 @@ spec:
               protocol: TCP
           envFrom:
             - configMapRef:
-                name: sample-app-front-configmap
+                name: postgres-configmap
           resources:
             requests:
-              cpu: 200m
-              memory: 500Mi
+              cpu: 100m
+              memory: 200Mi
       hostname: postgres
       restartPolicy: Always
 status: {}
