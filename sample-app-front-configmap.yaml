@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: sample-app-front-configmap
 data:
-  BACKEND_PORT: "3000"
-  BACKEND_SERVER: "34.84.60.122"
+  BACKEND_PORT: "33000"
+  BACKEND_SERVER: "34.146.28.166"
