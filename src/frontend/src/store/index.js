@@ -37,9 +37,10 @@ const store = createStore({
     async login({ commit }, credentials) {
       try {
         console.log(credentials);
+        console.log(`${backend_server}`)
+        console.log(`${backend_port}`)
         const response = await axios.post(`http://${backend_server}:${backend_port}/api/authenticate`, credentials, { headers: {
           'Content-Type': 'application/json'}});
-        console.log(`http://${backend_server}:${backend_port}/api/authenticate`);
         const message = response.data.message;
         console.log(message);
 

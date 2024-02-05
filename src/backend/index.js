@@ -4,6 +4,7 @@ const cors = require('cors')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { Pool } = require('pg');
+const winston = require('winston');
 
 /* add google-cloud component */
 require('@google-cloud/trace-agent').start({
@@ -33,6 +34,21 @@ const pool = new Pool({
   port: db_port, // デフォルトのPostgreSQLポート
 });
 
+// ログの出力先を指定
+const logger = winston.createLogger({
+  transports: [
+    new winston.transports.Console(),  // コンソールにログを出力
+    new winston.transports.File({
+      filename: '/app/log/backend.log',  // ファイルにログを出力
+      level: 'info',  // ログのレベルを指定 (info レベル以上のものがファイルに出力される)
+      format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.json()  // JSON形式でログを出力
+      )
+    })
+  ]
+});
+
 app.use(bodyParser.json())
 app.use(cors())
 
@@ -54,11 +70,13 @@ app.post('/api/authenticate', async (req, res) => {
   const { username, password } = req.body;
 
   try {
+    logger.info('start authenticate')
     // ユーザが存在するか確認
     const result = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
 
     //if (result.rows.length === 0 || password != result.rows[0].password) {
     if (result.rows.length === 0 || !bcrypt.compareSync(password, result.rows[0].password)) {
+      logger.info('the user not exists in DB or password is incorrect.')
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
@@ -74,12 +92,14 @@ app.post('/api/authenticate', async (req, res) => {
 
     const token = jwt.sign(jwtPayload, jwtsSecretKey, jwtOptions);
 
+    logger.info('login succeed. return jwt token')
     res.json({
       token: token,
       message: "Login successful"
     });
 
   } catch (error) {
+    logger.error(`Error during authentication: ${error}`);
     console.error('Error during authentication:', error);
     res.status(500).json({
       token: null,
@@ -90,5 +110,5 @@ app.post('/api/authenticate', async (req, res) => {
 // サーバーの起動
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  logger.info(`Server is running on port ${PORT}`);
 });
