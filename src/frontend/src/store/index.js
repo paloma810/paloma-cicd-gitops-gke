@@ -2,8 +2,8 @@ import { createStore } from 'vuex';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 
-const backend_server = process.env.BACKEND_SERVER
-const backend_port = process.env.BACKEND_PORT
+const backend_server = process.env.VUE_APP_BACKEND_SERVER
+const backend_port = process.env.VUE_APP_BACKEND_PORT
 
 const store = createStore({
   state() {

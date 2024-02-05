@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: sample-app-front-configmap
 data:
-  BACKEND_PORT: "33000"
-  BACKEND_SERVER: "34.146.28.166"
+  VUE_APP_BACKEND_PORT: "33000"
+  VUE_APP_BACKEND_SERVER: "34.146.28.166"

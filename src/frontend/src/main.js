@@ -8,8 +8,8 @@ import { loadFonts } from './plugins/webfontloader'
 
 loadFonts()
 
-const backend_server = process.env.BACKEND_SERVER
-const backend_port = process.env.BACKEND_PORT
+const backend_server = process.env.VUE_APP_BACKEND_SERVER
+const backend_port = process.env.VUE_APP_BACKEND_PORT
 const app = createApp(App)
 
 app.config.globalProperties.$axios = axios.create({
