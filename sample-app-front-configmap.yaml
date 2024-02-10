@@ -4,4 +4,4 @@ metadata:
   name: sample-app-front-configmap
 data:
   VUE_APP_BACKEND_PORT: "30300"
-  VUE_APP_BACKEND_SERVER: "34.146.28.166"
+  VUE_APP_BACKEND_SERVER: "35.221.71.36"
