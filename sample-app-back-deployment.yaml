@@ -36,6 +36,17 @@ spec:
           envFrom:
             - configMapRef:
                 name: sample-app-back-configmap
+          env:
+          - name:  POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: sample-db-credentials
+                key: kh-paloma-m01-01-secret-sample-db-user
+          - name:  POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: sample-db-credentials
+                key: kh-paloma-m01-01-secret-sample-db-password                
           resources:
             requests:
               cpu: 50m
