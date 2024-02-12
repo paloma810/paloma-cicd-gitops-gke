@@ -43,6 +43,6 @@ spec:
           tty: true
           workingDir: /app
       restartPolicy: Always
-      #nodeSelector:
-      #  nodeType: nodeA
+      nodeSelector:
+        nodeType: nodeA
 status: {}
