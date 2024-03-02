@@ -43,5 +43,5 @@ spec:
       hostname: postgres
       restartPolicy: Always
       nodeSelector:
-        nodeType: nodeB
+        cloud.google.com/gke-nodepool: kh-paloma-m01-01-gke-nodes02
 status: {}
