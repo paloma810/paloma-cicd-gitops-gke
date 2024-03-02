@@ -44,5 +44,5 @@ spec:
           workingDir: /app
       restartPolicy: Always
       nodeSelector:
-        nodeType: nodeA
+        cloud.google.com/gke-nodepool: kh-paloma-m01-01-gke-nodes01
 status: {}
