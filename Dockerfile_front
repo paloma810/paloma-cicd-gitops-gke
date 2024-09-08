@@ -10,3 +10,4 @@ RUN npm install -g @vue/cli
 RUN npm install
 
 ENTRYPOINT ["npm", "run", "serve"]
+
